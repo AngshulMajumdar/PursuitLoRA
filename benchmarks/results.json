@@ -1,0 +1,981 @@
+{
+ "setup": {
+  "base_model": "GPT-2 124M (openai-community/gpt2)",
+  "data": "Bengali news (github.com/soham96/Bengali_news_classifier @4c2a51b), 3M train tokens, 400 held-out articles",
+  "training": "300 AdamW steps, batch 8 x 128 tokens, fp32, identical batches for all methods",
+  "metric": "validation cross-entropy, nats/token, 64 x 128 tokens; lower is better",
+  "base_val": 1.7079,
+  "learning_rates": {
+   "PursuitLoRA": "3e-3 (alpha_scale 33.3), 10 warm-up steps, probe 4 batches, 8 candidates per matrix",
+   "LoRA/QLoRA": "1e-3",
+   "(IA)3": "3e-3",
+   "VeRA": "1e-2",
+   "prompt tuning": "3e-2",
+   "LayerNorm tuning": "1e-3",
+   "BitFit": "1e-3"
+  }
+ },
+ "tiers_seed0": {
+  "~1.5k": [
+   {
+    "method": "PursuitLoRA (sigma)",
+    "params": 1537,
+    "val": 1.4842,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.5787
+     ],
+     [
+      120,
+      1.5316
+     ],
+     [
+      180,
+      1.5149
+     ],
+     [
+      240,
+      1.5008
+     ],
+     [
+      300,
+      1.4842
+     ]
+    ]
+   },
+   {
+    "method": "PursuitLoRA (ols)",
+    "params": 1537,
+    "val": 1.4812,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.5839
+     ],
+     [
+      120,
+      1.528
+     ],
+     [
+      180,
+      1.5047
+     ],
+     [
+      240,
+      1.4873
+     ],
+     [
+      300,
+      1.4812
+     ]
+    ]
+   },
+   {
+    "method": "prompt tuning (1 token)",
+    "params": 768,
+    "val": 1.4928,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.548
+     ],
+     [
+      120,
+      1.5143
+     ],
+     [
+      180,
+      1.5046
+     ],
+     [
+      240,
+      1.4951
+     ],
+     [
+      300,
+      1.4928
+     ]
+    ]
+   },
+   {
+    "method": "LayerNorm tuning (final LN)",
+    "params": 1536,
+    "val": 1.6,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.6586
+     ],
+     [
+      120,
+      1.6358
+     ],
+     [
+      180,
+      1.6212
+     ],
+     [
+      240,
+      1.6104
+     ],
+     [
+      300,
+      1.6
+     ]
+    ]
+   }
+  ],
+  "~9k": [
+   {
+    "method": "PursuitLoRA (sigma)",
+    "params": 8452,
+    "val": 1.3693,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.493
+     ],
+     [
+      120,
+      1.4415
+     ],
+     [
+      180,
+      1.4133
+     ],
+     [
+      240,
+      1.389
+     ],
+     [
+      300,
+      1.3693
+     ]
+    ]
+   },
+   {
+    "method": "PursuitLoRA (ols)",
+    "params": 8452,
+    "val": 1.3684,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4816
+     ],
+     [
+      120,
+      1.4207
+     ],
+     [
+      180,
+      1.4039
+     ],
+     [
+      240,
+      1.3831
+     ],
+     [
+      300,
+      1.3684
+     ]
+    ]
+   },
+   {
+    "method": "prompt tuning (12 tokens)",
+    "params": 9216,
+    "val": 1.3704,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4782
+     ],
+     [
+      120,
+      1.4192
+     ],
+     [
+      180,
+      1.4021
+     ],
+     [
+      240,
+      1.3843
+     ],
+     [
+      300,
+      1.3704
+     ]
+    ]
+   },
+   {
+    "method": "LayerNorm tuning (last 3 layers)",
+    "params": 9216,
+    "val": 1.4073,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.5101
+     ],
+     [
+      120,
+      1.4653
+     ],
+     [
+      180,
+      1.4453
+     ],
+     [
+      240,
+      1.4243
+     ],
+     [
+      300,
+      1.4073
+     ]
+    ]
+   },
+   {
+    "method": "LoRA r=1 (q,v, last 3 layers)",
+    "params": 9216,
+    "val": 1.4299,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.5818
+     ],
+     [
+      120,
+      1.5015
+     ],
+     [
+      180,
+      1.4715
+     ],
+     [
+      240,
+      1.4458
+     ],
+     [
+      300,
+      1.4299
+     ]
+    ]
+   },
+   {
+    "method": "(IA)3 (values)",
+    "params": 9216,
+    "val": 1.4315,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.5646
+     ],
+     [
+      120,
+      1.5063
+     ],
+     [
+      180,
+      1.4722
+     ],
+     [
+      240,
+      1.4494
+     ],
+     [
+      300,
+      1.4315
+     ]
+    ]
+   }
+  ],
+  "~37k": [
+   {
+    "method": "PursuitLoRA (sigma)",
+    "params": 36112,
+    "val": 1.2732,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4358
+     ],
+     [
+      120,
+      1.3675
+     ],
+     [
+      180,
+      1.3437
+     ],
+     [
+      240,
+      1.3055
+     ],
+     [
+      300,
+      1.2732
+     ]
+    ]
+   },
+   {
+    "method": "PursuitLoRA (ols)",
+    "params": 35345,
+    "val": 1.2633,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4091
+     ],
+     [
+      120,
+      1.3418
+     ],
+     [
+      180,
+      1.3151
+     ],
+     [
+      240,
+      1.2952
+     ],
+     [
+      300,
+      1.2633
+     ]
+    ]
+   },
+   {
+    "method": "LayerNorm tuning (all)",
+    "params": 38400,
+    "val": 1.253,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.3897
+     ],
+     [
+      120,
+      1.3371
+     ],
+     [
+      180,
+      1.3034
+     ],
+     [
+      240,
+      1.2736
+     ],
+     [
+      300,
+      1.253
+     ]
+    ]
+   },
+   {
+    "method": "LoRA r=1 (q,v)",
+    "params": 36864,
+    "val": 1.3181,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4594
+     ],
+     [
+      120,
+      1.3965
+     ],
+     [
+      180,
+      1.366
+     ],
+     [
+      240,
+      1.3396
+     ],
+     [
+      300,
+      1.3181
+     ]
+    ]
+   },
+   {
+    "method": "prompt tuning (48 tokens)",
+    "params": 36864,
+    "val": 1.327,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4508
+     ],
+     [
+      120,
+      1.4002
+     ],
+     [
+      180,
+      1.3665
+     ],
+     [
+      240,
+      1.3481
+     ],
+     [
+      300,
+      1.327
+     ]
+    ]
+   },
+   {
+    "method": "QLoRA r=1 (q,v), NF4 base",
+    "params": 36864,
+    "val": 1.3352,
+    "curve": [
+     [
+      0,
+      1.8093
+     ],
+     [
+      60,
+      1.4814
+     ],
+     [
+      120,
+      1.4187
+     ],
+     [
+      180,
+      1.3775
+     ],
+     [
+      240,
+      1.356
+     ],
+     [
+      300,
+      1.3352
+     ]
+    ]
+   },
+   {
+    "method": "VeRA r=256 (q,v)",
+    "params": 24576,
+    "val": 1.3927,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.5852
+     ],
+     [
+      120,
+      1.4911
+     ],
+     [
+      180,
+      1.4479
+     ],
+     [
+      240,
+      1.4156
+     ],
+     [
+      300,
+      1.3927
+     ]
+    ]
+   }
+  ],
+  "~55k": [
+   {
+    "method": "PursuitLoRA (sigma)",
+    "params": 53783,
+    "val": 1.2536,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4243
+     ],
+     [
+      120,
+      1.3562
+     ],
+     [
+      180,
+      1.3194
+     ],
+     [
+      240,
+      1.2968
+     ],
+     [
+      300,
+      1.2536
+     ]
+    ]
+   },
+   {
+    "method": "PursuitLoRA (ols)",
+    "params": 54556,
+    "val": 1.2594,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.3993
+     ],
+     [
+      120,
+      1.3361
+     ],
+     [
+      180,
+      1.3026
+     ],
+     [
+      240,
+      1.2771
+     ],
+     [
+      300,
+      1.2594
+     ]
+    ]
+   },
+   {
+    "method": "(IA)3 (keys, values, MLP)",
+    "params": 55296,
+    "val": 1.2894,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4277
+     ],
+     [
+      120,
+      1.3665
+     ],
+     [
+      180,
+      1.3368
+     ],
+     [
+      240,
+      1.3098
+     ],
+     [
+      300,
+      1.2894
+     ]
+    ]
+   }
+  ],
+  "~83k": [
+   {
+    "method": "BitFit (all biases)",
+    "params": 82944,
+    "val": 1.3263,
+    "curve": [
+     [
+      0,
+      1.7079
+     ],
+     [
+      60,
+      1.4464
+     ],
+     [
+      120,
+      1.3892
+     ],
+     [
+      180,
+      1.3664
+     ],
+     [
+      240,
+      1.3428
+     ],
+     [
+      300,
+      1.3263
+     ]
+    ]
+   }
+  ]
+ },
+ "larger_budgets_lora": [
+  {
+   "method": "LoRA r=1 (q,k,v,o,MLP-in)",
+   "params": 119808,
+   "val": 1.1887,
+   "curve": [
+    [
+     0,
+     1.7079
+    ],
+    [
+     60,
+     1.3801
+    ],
+    [
+     120,
+     1.2978
+    ],
+    [
+     180,
+     1.2639
+    ],
+    [
+     240,
+     1.2205
+    ],
+    [
+     300,
+     1.1887
+    ]
+   ]
+  },
+  {
+   "method": "LoRA r=1 (all matrices)",
+   "params": 165888,
+   "val": 1.1763,
+   "curve": [
+    [
+     0,
+     1.7079
+    ],
+    [
+     60,
+     1.3841
+    ],
+    [
+     120,
+     1.2927
+    ],
+    [
+     180,
+     1.2538
+    ],
+    [
+     240,
+     1.213
+    ],
+    [
+     300,
+     1.1763
+    ]
+   ]
+  },
+  {
+   "method": "LoRA r=4 (all matrices)",
+   "params": 663552,
+   "val": 1.1324,
+   "curve": [
+    [
+     0,
+     1.7079
+    ],
+    [
+     60,
+     1.3464
+    ],
+    [
+     120,
+     1.266
+    ],
+    [
+     180,
+     1.2127
+    ],
+    [
+     240,
+     1.1815
+    ],
+    [
+     300,
+     1.1324
+    ]
+   ]
+  }
+ ],
+ "selections": {
+  "~1.5k": {
+   "sigma": {
+    "L0:attn.c_proj": 1
+   },
+   "ols": {
+    "L5:attn.c_attn.v": 1
+   }
+  },
+  "~9k": {
+   "sigma": {
+    "L0:attn.c_proj": 1,
+    "L2:mlp.c_proj": 1,
+    "L0:attn.c_attn.v": 1,
+    "L3:attn.c_attn.v": 1
+   },
+   "ols": {
+    "L5:attn.c_attn.v": 1,
+    "L2:attn.c_attn.v": 1,
+    "L10:mlp.c_proj": 1,
+    "L9:attn.c_proj": 1
+   }
+  },
+  "~37k": {
+   "sigma": {
+    "L0:attn.c_proj": 2,
+    "L2:mlp.c_proj": 1,
+    "L0:attn.c_attn.v": 1,
+    "L4:mlp.c_fc": 1,
+    "L3:attn.c_attn.v": 1,
+    "L4:attn.c_attn.v": 1,
+    "L5:mlp.c_fc": 1,
+    "L2:mlp.c_fc": 1,
+    "L6:attn.c_attn.v": 1,
+    "L5:attn.c_attn.v": 1,
+    "L2:attn.c_attn.v": 1,
+    "L11:attn.c_attn.v": 1,
+    "L5:attn.c_attn.q": 1,
+    "L0:mlp.c_proj": 1,
+    "L11:attn.c_proj": 1
+   },
+   "ols": {
+    "L5:attn.c_attn.v": 2,
+    "L2:attn.c_attn.v": 1,
+    "L10:mlp.c_proj": 1,
+    "L9:attn.c_proj": 1,
+    "L8:mlp.c_fc": 1,
+    "L6:attn.c_attn.v": 1,
+    "L3:attn.c_attn.v": 1,
+    "L8:attn.c_proj": 1,
+    "L11:attn.c_attn.v": 2,
+    "L0:attn.c_attn.k": 1,
+    "L0:mlp.c_proj": 1,
+    "L1:attn.c_attn.v": 1,
+    "L2:mlp.c_fc": 1,
+    "L9:attn.c_attn.q": 1,
+    "L4:attn.c_proj": 1
+   }
+  },
+  "~55k": {
+   "sigma": {
+    "L0:attn.c_proj": 3,
+    "L2:mlp.c_proj": 1,
+    "L0:attn.c_attn.v": 1,
+    "L4:mlp.c_fc": 1,
+    "L3:attn.c_attn.v": 1,
+    "L4:attn.c_attn.v": 1,
+    "L5:mlp.c_fc": 1,
+    "L2:mlp.c_fc": 2,
+    "L6:attn.c_attn.v": 1,
+    "L5:attn.c_attn.v": 1,
+    "L2:attn.c_attn.v": 1,
+    "L11:attn.c_attn.v": 1,
+    "L5:attn.c_attn.q": 1,
+    "L0:mlp.c_proj": 1,
+    "L4:mlp.c_proj": 1,
+    "L11:attn.c_proj": 1,
+    "L5:attn.c_attn.k": 1,
+    "L0:mlp.c_fc": 1,
+    "L2:attn.c_proj": 1,
+    "L6:attn.c_attn.q": 1
+   },
+   "ols": {
+    "L5:attn.c_attn.v": 2,
+    "L2:attn.c_attn.v": 1,
+    "L10:mlp.c_proj": 1,
+    "L9:attn.c_proj": 1,
+    "L8:mlp.c_fc": 1,
+    "L6:attn.c_attn.v": 1,
+    "L3:attn.c_attn.v": 2,
+    "L8:attn.c_proj": 1,
+    "L11:attn.c_attn.v": 2,
+    "L0:attn.c_attn.k": 1,
+    "L0:mlp.c_proj": 1,
+    "L1:attn.c_attn.v": 1,
+    "L2:mlp.c_fc": 1,
+    "L9:attn.c_attn.q": 1,
+    "L4:attn.c_proj": 1,
+    "L7:attn.c_attn.v": 1,
+    "L6:attn.c_attn.k": 1,
+    "L10:attn.c_attn.q": 1,
+    "L10:attn.c_proj": 1,
+    "L7:attn.c_attn.q": 1,
+    "L3:mlp.c_fc": 1,
+    "L0:attn.c_attn.v": 1,
+    "L10:attn.c_attn.v": 1,
+    "L11:attn.c_attn.k": 1,
+    "L1:attn.c_attn.k": 1
+   }
+  }
+ },
+ "ablation_9k": [
+  {
+   "variant": "sigma, alpha_scale 10",
+   "params": 8452,
+   "val": 1.3769,
+   "dev": 1.3221
+  },
+  {
+   "variant": "sigma, alpha_scale 33.3",
+   "params": 8452,
+   "val": 1.3693,
+   "dev": 1.3113
+  },
+  {
+   "variant": "sigma, alpha_scale 100",
+   "params": 8452,
+   "val": 1.3689,
+   "dev": 1.3121
+  },
+  {
+   "variant": "sigma per parameter",
+   "params": 7685,
+   "val": 1.3747,
+   "dev": 1.3151
+  },
+  {
+   "variant": "ols",
+   "params": 8452,
+   "val": 1.3684,
+   "dev": 1.3083
+  },
+  {
+   "variant": "ols per parameter",
+   "params": 7685,
+   "val": 1.3651,
+   "dev": 1.3132
+  },
+  {
+   "variant": "ols + swap weak atoms at steps 100, 200",
+   "params": 8452,
+   "val": 1.3791,
+   "dev": 1.3197
+  }
+ ],
+ "three_seeds": [
+  {
+   "budget": "~9k",
+   "PursuitLoRA (sigma)": [
+    1.3693,
+    1.3606,
+    1.353
+   ],
+   "baseline": "prompt tuning (12 tokens)",
+   "baseline_vals": [
+    1.3704,
+    1.3773,
+    1.3576
+   ],
+   "mean_diff": -0.0075,
+   "p_paired_t": 0.255
+  },
+  {
+   "budget": "~37k",
+   "PursuitLoRA (sigma)": [
+    1.2732,
+    1.284,
+    1.2652
+   ],
+   "baseline": "LayerNorm tuning (all)",
+   "baseline_vals": [
+    1.253,
+    1.2516,
+    1.2466
+   ],
+   "mean_diff": 0.0237,
+   "p_paired_t": 0.032
+  },
+  {
+   "budget": "~55k",
+   "PursuitLoRA (sigma)": [
+    1.2536,
+    1.2671,
+    1.2314
+   ],
+   "baseline": "(IA)3 (keys, values, MLP)",
+   "baseline_vals": [
+    1.2894,
+    1.2899,
+    1.2845
+   ],
+   "mean_diff": -0.0372,
+   "p_paired_t": 0.051
+  }
+ ]
+}

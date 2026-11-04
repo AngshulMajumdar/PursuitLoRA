@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pursuitlora"
+version = "0.1.0"
+description = "LoRA-shaped adapters whose rank-one atoms are chosen across all matrices by gradient pursuit"
+readme = "README.md"
+authors = [{ name = "Angshul Majumdar", email = "angshul@iiitd.ac.in" }]
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.1",
+    "transformers>=4.40",
+    "safetensors>=0.4",
+    "huggingface_hub>=0.20",
+]
+keywords = ["peft", "fine-tuning", "lora", "gradient-pursuit", "transformers", "huggingface"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.optional-dependencies]
+test = ["pytest", "accelerate"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
